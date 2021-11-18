@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
 import styles from "./Form.module.css";
 import { useState } from "react";
 import { addContact } from "../../redux/contacts/contacts-action";
 import Notiflix from "notiflix";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 const Form = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
   const { items } = useSelector((state) => state.contacts);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const { name, value } = event.currentTarget;
@@ -34,27 +34,17 @@ const Form = () => {
 
   const formSubmit = (event) => {
     event.preventDefault();
-    
-    if (
-      items.some(
-        (item) => name.toLowerCase() === item.name.toLowerCase()
-      )
-    ) {
-      return Notiflix.Notify.warning(
-        `${name} is already in contacts`
-      );
+
+    if (items.some((item) => name.toLowerCase() === item.name.toLowerCase())) {
+      return Notiflix.Notify.warning(`${name} is already in contacts`);
     } else if (
-      items.some(
-        (item) => number.toLowerCase() === item.number.toLowerCase()
-      )
+      items.some((item) => number.toLowerCase() === item.number.toLowerCase())
     ) {
-      return Notiflix.Notify.warning(
-        `${number} is already in contacts`
-      );
+      return Notiflix.Notify.warning(`${number} is already in contacts`);
     } else {
       dispatch(addContact(name, number));
     }
-    
+
     reset();
   };
 
@@ -98,5 +88,5 @@ const Form = () => {
 export default Form;
 
 Form.propTypes = {
-    value: PropTypes.string
-}
+  value: PropTypes.string,
+};
